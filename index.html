@@ -473,6 +473,24 @@ footer .author-footer { color: var(--neon-pink); font-weight: 700; }
 
 <body>
 
+<!-- ============================================================
+     PATCH : forcer l'ouverture de la page en haut (header visible)
+     Empêche le saut automatique vers #animation et la restauration
+     de la position de scroll par le navigateur.
+     ============================================================ -->
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  window.addEventListener('load', () => {
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  });
+</script>
+
 <header>
   <div class="logo">Σ SUITES RÉELLES · 4<sup style="text-transform: lowercase;">ème</sup> INFO</div>
   <nav class="nav-tabs">
@@ -638,21 +656,17 @@ footer .author-footer { color: var(--neon-pink); font-weight: 700; }
          ============================================================ -->
     <div class="math-block">
       <svg class="tkz" viewBox="0 0 660 160" role="img" aria-label="Tableau de signes de P(x) : négatif sur ]moins l'infini ; moins 2[, nul en moins 2, positif sur ]moins 2 ; 1[, nul en 1, négatif sur ]1 ; plus l'infini[">
-        <!-- surlignage de [0,1[ dans la zone positive -->
         <rect class="hl" x="326" y="54" width="140" height="46" rx="4"/>
-        <!-- cadre, séparations -->
         <rect class="frame" x="1" y="1" width="658" height="104"/>
         <line x1="1" y1="48" x2="659" y2="48"/>
         <line x1="132" y1="1" x2="132" y2="105"/>
         <line x1="308" y1="48" x2="308" y2="105"/>
         <line x1="484" y1="48" x2="484" y2="105"/>
-        <!-- ligne x -->
         <text class="it" x="66" y="34" text-anchor="middle">x</text>
         <text x="146" y="35" text-anchor="start">−∞</text>
         <text x="308" y="35" text-anchor="middle">−2</text>
         <text x="484" y="35" text-anchor="middle">1</text>
         <text x="645" y="35" text-anchor="end">+∞</text>
-        <!-- ligne P(x) -->
         <text x="66" y="86" text-anchor="middle"><tspan class="it">P</tspan>(<tspan class="it">x</tspan>)</text>
         <text class="sgn" x="220" y="89" text-anchor="middle">−</text>
         <rect class="cut" x="298" y="66" width="20" height="24"/>
@@ -661,7 +675,6 @@ footer .author-footer { color: var(--neon-pink); font-weight: 700; }
         <rect class="cut" x="474" y="66" width="20" height="24"/>
         <text class="zero" x="484" y="85" text-anchor="middle">0</text>
         <text class="sgn" x="572" y="89" text-anchor="middle">−</text>
-        <!-- accolade sous la zone positive -->
         <path class="br" d="M312,116 v8 h164 v-8"/>
         <text class="hlt" x="394" y="150" text-anchor="middle"><tspan class="it">u</tspan><tspan class="it" font-size="14" dy="5">n</tspan><tspan dy="-5"> ∈ [0 ; 1[ ⊂ ]−2 ; 1[</tspan></text>
       </svg>
