@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suites réelles — Exercice 4 — Mr Mzoughi Nabil</title>
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    svg: { fontCache: 'global' },
+    options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code', 'svg'] }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+:root {
+  --bg-dark: #0a1128;
+  --bg-card: #121b33;
+  --text-main: #e2e8f0;
+  --text-muted: #94a3b8;
+  --neon-blue: #00d2ff;
+  --neon-pink: #ff007f;
+  --neon-purple: #b026ff;
+  --border-color: #1e293b;
+  --table-stripe: #162040;
+  --accent-gradient: linear-gradient(90deg, #00d2ff, #b026ff, #ff007f);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  line-height: 1.65;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background: rgba(10, 17, 40, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 1.1em;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-tabs { display: flex; gap: 12px; }
+
+.tab-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.tab-btn:hover {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+}
+.tab-btn.active {
+  background: rgba(0, 210, 255, 0.1);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+}
+
+.hero { padding: 60px 40px 40px; max-width: 1200px; margin: 0 auto; width: 100%; }
+.hero-subtitle {
+  color: var(--neon-pink);
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.hero h1 { font-size: 3.5em; font-weight: 900; line-height: 1.1; margin-bottom: 20px; color: #fff; }
+.hero h1 .gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero p { color: var(--text-muted); font-size: 1.1em; max-width: 800px; margin-bottom: 30px; }
+
+.author-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgba(255, 0, 127, 0.1), rgba(0, 210, 255, 0.1));
+  border: 1px solid rgba(255, 0, 127, 0.3);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+.author-badge span { color: var(--neon-pink); }
+
+.content-area {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 40px 60px;
+  flex: 1;
+}
+
+.tab-content { display: none; animation: fadeIn 0.4s ease; }
+.tab-content.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2, h3, h4 { color: #fff; margin-top: 30px; margin-bottom: 15px; }
+h2 { font-size: 1.8em; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+h3 { font-size: 1.4em; color: var(--neon-blue); }
+h4 { font-size: 1.1em; color: var(--neon-pink); }
+p { margin-bottom: 15px; }
+
+.box {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px 0;
+  border-left: 4px solid var(--neon-blue);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.box-title {
+  font-weight: 800;
+  font-size: 1.1em;
+  margin-bottom: 12px;
+  color: var(--neon-blue);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.box.dem { border-left-color: var(--neon-purple); }
+.box.dem .box-title { color: var(--neon-purple); }
+.box.attention { border-left-color: var(--neon-pink); }
+.box.attention .box-title { color: var(--neon-pink); }
+.box.resultat { border-left-color: #00ff88; }
+.box.resultat .box-title { color: #00ff88; }
+
+/* ============================================================
+   TABLEAU DE SIGNES — Version SVG (style tkz-tab)
+   ============================================================ */
+.math-block {
+  display: flex;
+  justify-content: center;
+  margin: 25px 0;
+  background: var(--bg-card);
+  padding: 25px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+svg.tkz {
+  width: 100%;
+  max-width: 660px;
+  height: auto;
+  overflow: visible;
+  font-family: 'Latin Modern Math', 'Cambria Math', Georgia, serif;
+}
+svg.tkz .frame,
+svg.tkz line {
+  fill: none;
+  stroke: var(--neon-blue);
+  stroke-width: 2;
+}
+svg.tkz .cut {
+  fill: var(--bg-card);
+}
+svg.tkz text {
+  fill: var(--text-main);
+  font-size: 20px;
+}
+svg.tkz .it { font-style: italic; }
+svg.tkz .sgn { fill: #c8d2e0; }
+svg.tkz .zero { fill: #ffffff; font-weight: 700; }
+svg.tkz .hl {
+  fill: rgba(255, 190, 70, 0.06);
+  stroke: #ffbe46;
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+  filter: drop-shadow(0 0 6px rgba(255, 190, 70, 0.55));
+}
+svg.tkz .br {
+  fill: none;
+  stroke: #ffbe46;
+  stroke-width: 2;
+}
+svg.tkz .hlt {
+  fill: #ffbe46;
+  font-weight: 600;
+}
+/* ============================================================ */
+
+/* ---------- Animation Layout ---------- */
+.anim-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+@media (max-width: 950px) {
+  .anim-layout { grid-template-columns: 1fr; }
+}
+
+.canvas-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  width: 100%;
+}
+
+canvas#seqCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #0a1128;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn:hover {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+}
+.btn.primary {
+  background: var(--neon-blue);
+  color: #0a1128;
+  border-color: var(--neon-blue);
+}
+.btn.primary:hover {
+  background: #00e5ff;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+}
+.btn.warn {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+}
+.btn.warn:hover {
+  background: rgba(255, 0, 127, 0.1);
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+}
+
+.slider-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--neon-blue);
+}
+.slider-group input[type=range] { accent-color: var(--neon-blue); cursor: pointer; }
+
+.checkbox-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--neon-blue);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+.checkbox-group:hover {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+}
+.checkbox-group input[type=checkbox] {
+  accent-color: var(--neon-blue);
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+
+.readout {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: rgba(0, 210, 255, 0.05);
+  border-left: 3px solid var(--neon-blue);
+  border-radius: 8px;
+  font-size: 1em;
+  color: var(--neon-blue);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ---------- Values Table ---------- */
+.table-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 20px;
+  max-height: 750px;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+.table-wrap h4 {
+  margin-top: 0;
+  color: var(--neon-pink);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+table.vals {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Consolas', 'Menlo', monospace;
+  font-size: 0.85em;
+}
+table.vals th {
+  background: #0a1128;
+  color: var(--neon-blue);
+  padding: 10px 6px;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid var(--border-color);
+}
+table.vals td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-main);
+  transition: background 0.25s ease;
+}
+table.vals tr:nth-child(even) td { background: var(--table-stripe); }
+
+table.vals tr.current td {
+  background: linear-gradient(90deg, rgba(0, 210, 255, 0.22), rgba(0, 130, 200, 0.22)) !important;
+  color: #fff;
+  font-weight: 700;
+  border-top: 1.5px solid rgba(0, 210, 255, 0.75);
+  border-bottom: 1.5px solid rgba(0, 210, 255, 0.75);
+  box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.10);
+  animation: rowFlash 0.75s ease;
+}
+table.vals tr.current td:first-child {
+  border-left: 3px solid var(--neon-blue);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+table.vals tr.current td:last-child {
+  border-right: 3px solid var(--neon-blue);
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+@keyframes rowFlash {
+  0% {
+    background: rgba(0, 210, 255, 0.48) !important;
+    box-shadow: inset 0 0 14px rgba(0, 210, 255, 0.35);
+  }
+  100% {
+    background: linear-gradient(90deg, rgba(0, 210, 255, 0.22), rgba(0, 130, 200, 0.22)) !important;
+    box-shadow: inset 0 0 10px rgba(0, 210, 255, 0.10);
+  }
+}
+
+table.vals td.err { color: #ff4d4d; font-size: 0.85em; }
+table.vals tr.current td.err { color: #ffd1d1; }
+
+.alert-box {
+  background: rgba(255, 0, 127, 0.1);
+  border: 1px solid var(--neon-pink);
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  color: #fff;
+  font-size: 1.05em;
+  line-height: 1.6;
+}
+.alert-box strong { color: var(--neon-pink); }
+
+footer {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.9em;
+  margin-top: auto;
+}
+footer .author-footer { color: var(--neon-pink); font-weight: 700; }
+
+.enonce {
+  background: var(--bg-card);
+  border: 1px dashed var(--neon-blue);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 0.85em;
+  margin-top: 15px;
+  color: var(--text-muted);
+  justify-content: center;
+}
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { display: inline-block; width: 20px; height: 3px; border-radius: 2px; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Σ SUITES RÉELLES · 4<sup style="text-transform: lowercase;">ème</sup> INFO</div>
+  <nav class="nav-tabs">
+    <button class="tab-btn active" data-tab="animation">Animation</button>
+    <button class="tab-btn" data-tab="correction">Correction complète</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-subtitle">Exercice N°4 · Suites récurrentes</div>
+  <h1>
+    <span class="gradient-text">Construire les termes</span><br>
+    et comprendre la convergence
+  </h1>
+  <p>
+    Une animation guidée pour construire les termes de la suite sur l'axe des abscisses,
+    comprendre le rôle de la courbe $C_f$ et de la droite $y = x$, puis observer graphiquement
+    l'approche du point fixe $1$.
+  </p>
+  <div class="author-badge">
+    Réalisé par <span>M<sup>r</sup> Mzoughi Nabil</span>
+  </div>
+</section>
+
+<div class="content-area">
+
+  <!-- ========== ONGLET ANIMATION ========== -->
+  <section id="animation" class="tab-content active">
+    <div class="box idee">
+      <div class="box-title">💡 Comment lire l'animation ?</div>
+      <p>À partir de $u_0=0$ :</p>
+      <ol style="margin-left: 20px; color: var(--text-muted);">
+        <li>on trace une <strong>verticale</strong> jusqu'à la courbe $y=f(x)$ pour obtenir $u_1=f(u_0)$ ;</li>
+        <li>on trace une <strong>horizontale</strong> jusqu'à la droite $y=x$ pour reporter $u_1$ sur l'axe des abscisses ;</li>
+        <li>on recommence : verticale vers la courbe, horizontale vers $y=x$, etc.</li>
+        <li>chaque terme atteint est <strong>projeté verticalement sur l'axe des abscisses</strong> pour bien lire sa valeur.</li>
+      </ol>
+      <p style="margin-top: 10px; color: var(--neon-pink); font-weight: 600;">
+        Chaque « marche » est plus petite que la précédente : les termes se rapprochent du point fixe $(1,1)$
+        sans jamais l'atteindre en un nombre fini d'étapes.
+      </p>
+    </div>
+
+    <div class="anim-layout">
+      <div class="canvas-wrap">
+        <canvas id="seqCanvas" width="900" height="700"></canvas>
+
+        <div class="controls">
+          <button class="btn primary" id="btnPlay">▶ Lecture</button>
+          <button class="btn" id="btnStepBack">⏮ Pas −</button>
+          <button class="btn" id="btnStepFwd">⏭ Pas +</button>
+          <button class="btn warn" id="btnReset">↺ Reset</button>
+          <button class="btn" id="btnZoomIn">🔍+</button>
+          <button class="btn" id="btnZoomOut">🔍−</button>
+          <button class="btn" id="btnViewGlobal">🌐 Globale</button>
+          <button class="btn" id="btnViewFixed">🎯 Point fixe</button>
+        </div>
+
+        <div class="controls">
+          <div class="slider-group">
+            <label for="termsRange">Termes :</label>
+            <input type="range" id="termsRange" min="1" max="25" value="8" step="1">
+            <span id="termsLbl">8</span>
+          </div>
+          <div class="slider-group">
+            <label for="speedRange">Vitesse :</label>
+            <input type="range" id="speedRange" min="1" max="5" value="3" step="1">
+          </div>
+          <label class="checkbox-group">
+            <input type="checkbox" id="autoZoom">
+            <span>🎯 Zoom auto — poursuite du point fixe</span>
+          </label>
+        </div>
+
+        <div class="readout" id="readout">
+          $u_0 = 0{,}000000000000000$ · terme courant : $n=0$
+        </div>
+
+        <div class="legend">
+          <span><i style="background:#00d2ff;"></i> courbe $y=f(x)$</span>
+          <span><i style="background:#64748b;"></i> droite $y=x$</span>
+          <span><i style="background:#ff007f;"></i> construction en escalier</span>
+          <span><i style="background:#ffbe46;"></i> projection de $u_n$ sur l'axe</span>
+          <span><i style="background:#ff4d4d; width:10px; height:10px; border-radius:50%;"></i> point fixe $(1,1)$</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <h4>Valeurs des premiers termes de $(u_n)$</h4>
+        <table class="vals" id="valsTable">
+          <thead>
+            <tr>
+              <th>$n$</th>
+              <th>$u_n$ (exact / 15 déc.)</th>
+              <th>$1 - u_n$</th>
+            </tr>
+          </thead>
+          <tbody id="valsBody"></tbody>
+        </table>
+
+        <div class="alert-box">
+          <strong>Rappel mathématique :</strong> Nous avons démontré que $0 \leq u_n < 1$ pour tout $n \in \mathbb{N}$.<br>
+          La limite est $1$, mais <em>aucun terme de la suite n'est jamais égal à $1$</em>. La suite s'en approche infiniment sans l'atteindre.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ONGLET CORRECTION ========== -->
+  <section id="correction" class="tab-content">
+    <h2>Énoncé</h2>
+    <div class="enonce">
+      <p>On considère la suite $(u_n)$ définie par</p>
+      $$u_0=0, \qquad u_{n+1}=\frac{3u_n+2}{u_n+4} \quad\text{pour tout }n\in\mathbb N.$$
+      <p>On pose</p>
+      $$f(x)=\frac{3x+2}{x+4}.$$
+    </div>
+
+    <h2>1. Encadrement de la suite</h2>
+    <p>Montrons par récurrence que, pour tout $n\in\mathbb N$, $0\leq u_n<1$.</p>
+
+    <div class="box dem">
+      <div class="box-title">📐 Démonstration</div>
+      <p><strong>Vérification au premier rang.</strong> On a $u_0=0$, donc $0\leq u_0<1$.</p>
+      <p><strong>Étape de récurrence.</strong> Soit $n\in\mathbb N$, supposons que $0\leq u_n<1$, et montrons que $0\leq u_{n+1}<1$.</p>
+      <p>Comme $u_n\geq 0$, le numérateur $3u_n+2$ et le dénominateur $u_n+4$ sont positifs. Ainsi,
+      $$u_{n+1}=\frac{3u_n+2}{u_n+4}\geq 0.$$
+      Calculons ensuite :
+      $$\begin{aligned}
+      1-u_{n+1}&=1-\frac{3u_n+2}{u_n+4}\\
+      &=\frac{u_n+4-3u_n-2}{u_n+4}\\
+      &=\frac{2(1-u_n)}{u_n+4}.
+      \end{aligned}$$
+      Or $1-u_n>0$ et $u_n+4>0$. Donc $1-u_{n+1}>0$, c'est-à-dire $u_{n+1}<1$.</p>
+      <p><strong>Conclusion.</strong> Par récurrence,
+      $$\boxed{\,0\leq u_n<1\quad\text{pour tout }n\in\mathbb N.\,}$$</p>
+    </div>
+
+    <h2>2. Monotonie et limite : première méthode</h2>
+
+    <h3>a) Étude de la monotonie</h3>
+    <p>Calculons la différence $u_{n+1}-u_n$ :</p>
+    $$\begin{aligned}
+    u_{n+1}-u_n
+    &=\frac{3u_n+2}{u_n+4}-u_n\\
+    &=\frac{3u_n+2-u_n(u_n+4)}{u_n+4}\\
+    &=\frac{-u_n^2-u_n+2}{u_n+4}.
+    \end{aligned}$$
+
+    <p>Posons</p>
+    $$P(x)=-x^2-x+2.$$
+    <p>Nous allons étudier le signe de ce trinôme.</p>
+    <p>Pour $P(x)=ax^2+bx+c$, on a ici</p>
+    $$a=-1,\qquad b=-1,\qquad c=2,$$
+    <p>et donc</p>
+    $$a+b+c=-1-1+2=0.$$
+    <p>Ainsi, $P(1)=0$ : le nombre $1$ est une racine de $P$.</p>
+    <p>Le produit des deux racines vaut $\dfrac ca=-2$. Comme l'une des racines est $1$, l'autre est $-2$.</p>
+    <p>Le coefficient de $x^2$ est négatif. Le trinôme est donc négatif à l'extérieur de ses racines et positif entre ses racines. Son tableau de signes est :</p>
+
+    <!-- ============================================================
+         TABLEAU DE SIGNES — Version SVG (style tkz-tab fidèle au PDF)
+         ============================================================ -->
+    <div class="math-block">
+      <svg class="tkz" viewBox="0 0 660 160" role="img" aria-label="Tableau de signes de P(x) : négatif sur ]moins l'infini ; moins 2[, nul en moins 2, positif sur ]moins 2 ; 1[, nul en 1, négatif sur ]1 ; plus l'infini[">
+        <!-- surlignage de [0,1[ dans la zone positive -->
+        <rect class="hl" x="326" y="54" width="140" height="46" rx="4"/>
+        <!-- cadre, séparations -->
+        <rect class="frame" x="1" y="1" width="658" height="104"/>
+        <line x1="1" y1="48" x2="659" y2="48"/>
+        <line x1="132" y1="1" x2="132" y2="105"/>
+        <line x1="308" y1="48" x2="308" y2="105"/>
+        <line x1="484" y1="48" x2="484" y2="105"/>
+        <!-- ligne x -->
+        <text class="it" x="66" y="34" text-anchor="middle">x</text>
+        <text x="146" y="35" text-anchor="start">−∞</text>
+        <text x="308" y="35" text-anchor="middle">−2</text>
+        <text x="484" y="35" text-anchor="middle">1</text>
+        <text x="645" y="35" text-anchor="end">+∞</text>
+        <!-- ligne P(x) -->
+        <text x="66" y="86" text-anchor="middle"><tspan class="it">P</tspan>(<tspan class="it">x</tspan>)</text>
+        <text class="sgn" x="220" y="89" text-anchor="middle">−</text>
+        <rect class="cut" x="298" y="66" width="20" height="24"/>
+        <text class="zero" x="308" y="85" text-anchor="middle">0</text>
+        <text class="sgn" x="396" y="90" text-anchor="middle">+</text>
+        <rect class="cut" x="474" y="66" width="20" height="24"/>
+        <text class="zero" x="484" y="85" text-anchor="middle">0</text>
+        <text class="sgn" x="572" y="89" text-anchor="middle">−</text>
+        <!-- accolade sous la zone positive -->
+        <path class="br" d="M312,116 v8 h164 v-8"/>
+        <text class="hlt" x="394" y="150" text-anchor="middle"><tspan class="it">u</tspan><tspan class="it" font-size="14" dy="5">n</tspan><tspan dy="-5"> ∈ [0 ; 1[ ⊂ ]−2 ; 1[</tspan></text>
+      </svg>
+    </div>
+    <!-- ============================================================ -->
+
+    <p>D'après la première question, $u_n\in[0,1[$. Or $[0,1[\subset\,]-2,1[$. Le tableau de signes montre donc que $P(u_n)>0$. De plus, $u_n+4>0$. Par conséquent,
+    $$u_{n+1}-u_n=\frac{P(u_n)}{u_n+4}>0.$$
+    Ainsi, $(u_n)$ est strictement croissante.</p>
+
+    <h3>b) Convergence et calcul de la limite</h3>
+    <p>La suite $(u_n)$ est croissante et majorée par $1$. Elle est donc convergente. Notons $\ell$ sa limite.</p>
+    <p>La fonction $f(x)=\dfrac{3x+2}{x+4}$ est continue sur $[0,1]$. En passant à la limite dans $u_{n+1}=f(u_n)$, on obtient
+    $$\ell=\frac{3\ell+2}{\ell+4}.$$
+    Comme $\ell+4\neq 0$, on peut multiplier par $\ell+4$ :
+    $$\ell(\ell+4)=3\ell+2.$$
+    Ainsi,
+    $$\ell^2+\ell-2=0\quad\Longleftrightarrow\quad(\ell-1)(\ell+2)=0.$$
+    Les solutions sont $\ell=1$ et $\ell=-2$. Mais $0\leq u_n<1$ pour tout $n$, donc la limite appartient à $[0,1]$. On retient $\ell=1$ :
+    $$\boxed{\,\lim_{n\to+\infty}u_n=1.\,}$$</p>
+
+    <h2>3. Estimation de l'écart à la limite : deuxième méthode</h2>
+
+    <h3>a) Identité et majoration</h3>
+    <p>À partir de $1-u_{n+1}=\dfrac{2(1-u_n)}{u_n+4}$, on calcule :</p>
+    $$\begin{aligned}
+    (1-u_{n+1})-\frac23(1-u_n)
+    &=\frac{2(1-u_n)}{u_n+4}-\frac23(1-u_n)\\
+    &=2(1-u_n)\left(\frac{1}{u_n+4}-\frac13\right)\\
+    &=2(1-u_n)\frac{3-u_n-4}{3(u_n+4)}\\
+    &=\frac{2(1-u_n)(-u_n-1)}{3(u_n+4)}\\
+    &=\frac{2(u_n^2-1)}{3(u_n+4)}.
+    \end{aligned}$$
+    On a donc bien
+    $$\boxed{\,(1-u_{n+1})-\frac23(1-u_n)=\frac{2(u_n^2-1)}{3(u_n+4)}.\,}$$
+
+    <p>Comme $0\leq u_n<1$, on a $u_n^2-1<0$. L'identité donne alors $1-u_{n+1}\leq\dfrac23(1-u_n)$. De plus, $1-u_{n+1}\geq 0$. Par conséquent,
+    $$\boxed{\,|1-u_{n+1}|\leq\frac23\,|1-u_n|.\,}$$
+
+    <h3>b) Majorant de $|1-u_n|$ et limite</h3>
+    <p>Montrons par récurrence que $|1-u_n|\leq\left(\dfrac23\right)^n$ pour tout $n\in\mathbb N$.</p>
+
+    <div class="box dem">
+      <div class="box-title">📐 Démonstration</div>
+      <p><strong>Vérification au premier rang.</strong> $|1-u_0|=|1-0|=1=\left(\dfrac23\right)^0$.</p>
+      <p><strong>Étape de récurrence.</strong> Supposons que $|1-u_n|\leq\left(\dfrac23\right)^n$. Alors, grâce à la majoration précédente,
+      $$\begin{aligned}
+      |1-u_{n+1}|&\leq\frac23|1-u_n|\\
+      &\leq\frac23\left(\frac23\right)^n\\
+      &=\left(\frac23\right)^{n+1}.
+      \end{aligned}$$</p>
+      <p><strong>Conclusion.</strong> Par récurrence, $|1-u_n|\leq\left(\dfrac23\right)^n$ pour tout $n\in\mathbb N$. Or $\left(\dfrac23\right)^n\to 0$. Ainsi, par comparaison, $|1-u_n|\longrightarrow 0$, donc
+      $$\boxed{\,\lim_{n\to+\infty}u_n=1.\,}$$</p>
+    </div>
+
+    <h2>4. Transformation en une suite géométrique : troisième méthode</h2>
+    <p>On définit la suite $(v_n)$ par $v_n=\dfrac{u_n-1}{u_n+2}$.</p>
+
+    <h3>a) Nature de la suite $(v_n)$</h3>
+    <p>Calculons $v_{n+1}$ :</p>
+    $$v_{n+1}=\frac{u_{n+1}-1}{u_{n+1}+2}=\frac{\dfrac{3u_n+2}{u_n+4}-1}{\dfrac{3u_n+2}{u_n+4}+2}.$$
+    <p>On simplifie séparément le numérateur et le dénominateur :</p>
+    $$\frac{3u_n+2}{u_n+4}-1=\frac{2(u_n-1)}{u_n+4},\qquad
+    \frac{3u_n+2}{u_n+4}+2=\frac{5(u_n+2)}{u_n+4}.$$
+    <p>Donc</p>
+    $$\begin{aligned}
+    v_{n+1}&=\frac{\dfrac{2(u_n-1)}{u_n+4}}{\dfrac{5(u_n+2)}{u_n+4}}
+    =\frac25\cdot\frac{u_n-1}{u_n+2}
+    =\frac25\,v_n.
+    \end{aligned}$$
+    <p>La suite $(v_n)$ est géométrique de raison $\dfrac25$. Son premier terme est $v_0=\dfrac{u_0-1}{u_0+2}=-\dfrac12$. Ainsi,
+    $$\boxed{\,v_n=-\frac12\left(\frac25\right)^n.\,}$$
+
+    <h3>b) Expression de $u_n$ et limite</h3>
+    <p>Partons de $v_n=\dfrac{u_n-1}{u_n+2}$. On multiplie par $u_n+2$ : $v_n(u_n+2)=u_n-1$. En regroupant les termes contenant $u_n$ : $u_n(v_n-1)=-1-2v_n$. Donc
+    $$u_n=\frac{1+2v_n}{1-v_n}.$$
+    <p>En remplaçant $v_n$ par $-\dfrac12\left(\dfrac25\right)^n$, on obtient</p>
+    $$\boxed{\,u_n=\frac{1-\left(\frac25\right)^n}{1+\frac12\left(\frac25\right)^n}.\,}$$
+    <p>Comme $\left(\dfrac25\right)^n\to 0$, on retrouve $\lim_{n\to+\infty}u_n=1$.</p>
+
+    <h2>5. Étude de la somme $S_n$</h2>
+    <p>On considère
+    $$S_n=\frac3{u_0+2}+\frac3{u_1+2}+\cdots+\frac3{u_n+2}=\sum_{k=0}^{n}\frac3{u_k+2}.$$
+
+    <h3>a) Expression de $S_n$</h3>
+    <p>D'après la définition de $v_k$,
+    $$1-v_k=1-\frac{u_k-1}{u_k+2}=\frac{u_k+2-u_k+1}{u_k+2}=\frac3{u_k+2}.$$
+    Donc $\dfrac3{u_k+2}=1-v_k$. Or $v_k=-\dfrac12\left(\dfrac25\right)^k$, d'où $\dfrac3{u_k+2}=1+\dfrac12\left(\dfrac25\right)^k$. Ainsi,
+    $$\begin{aligned}
+    S_n&=\sum_{k=0}^{n}\left(1+\frac12\left(\frac25\right)^k\right)\\
+    &=n+1+\frac12\sum_{k=0}^{n}\left(\frac25\right)^k.
+    \end{aligned}$$
+    <p>La somme géométrique est</p>
+    $$\sum_{k=0}^{n}\left(\frac25\right)^k=\frac{1-\left(\frac25\right)^{n+1}}{1-\frac25}=\frac53\left(1-\left(\frac25\right)^{n+1}\right).$$
+    <p>Par conséquent,</p>
+    $$\begin{aligned}
+    S_n&=n+1+\frac56\left(1-\left(\frac25\right)^{n+1}\right)\\
+    &=n+\frac{11}{6}-\frac56\left(\frac25\right)^{n+1}\\
+    &=n+\frac{11}{6}-\frac13\left(\frac25\right)^n.
+    \end{aligned}$$
+    <p>La formule correcte est donc</p>
+    $$\boxed{\,S_n=n+\frac{11}{6}-\frac13\left(\frac25\right)^n.\,}$$
+
+    <div class="box attention">
+      <div class="box-title">⚠️ Attention</div>
+      La formule inscrite dans l'énoncé comporte une erreur de signe. Le terme final doit être
+      $-\dfrac13\left(\dfrac25\right)^n$ et non $+\dfrac13\left(\dfrac25\right)^n$.
+      <br><br>
+      <em>Vérification pour $n=0$ :</em> la définition donne $S_0=\dfrac3{u_0+2}=\dfrac32$.
+      La formule corrigée donne également $\dfrac{11}{6}-\dfrac13=\dfrac32$.
+    </div>
+
+    <h3>b) Limites de $S_n$ et de $\dfrac{S_n}{n}$</h3>
+    <p>Puisque $S_n=n+\dfrac{11}{6}-\dfrac13\left(\dfrac25\right)^n$, le terme $n$ tend vers $+\infty$ et le terme $\left(\dfrac25\right)^n$ tend vers $0$. Ainsi,
+    $$\boxed{\,\lim_{n\to+\infty}S_n=+\infty.\,}$$
+    <p>Pour $n\geq 1$,</p>
+    $$\frac{S_n}{n}=1+\frac{11}{6n}-\frac{1}{3n}\left(\frac25\right)^n.$$
+    <p>Les deux derniers termes tendent vers $0$. Par conséquent,</p>
+    $$\boxed{\,\lim_{n\to+\infty}\frac{S_n}{n}=1.\,}$$
+
+    <div class="box resultat">
+      <div class="box-title">✅ Conclusion</div>
+      La suite $(u_n)$ est strictement croissante, majorée par $1$, et converge vers $1$, qui est le point fixe de $f$ sur $[0,1]$. La convergence est rapide (raison $\tfrac25$ pour la suite auxiliaire $v_n$). La construction graphique en escalier permet de visualiser ce comportement (voir l'onglet « Animation »).
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>Réalisé par <span class="author-footer">M<sup>r</sup> Mzoughi Nabil</span> · Support pédagogique interactif · Suites réelles</p>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    tabContents.forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'animation') {
+      requestAnimationFrame(() => { resizeCanvas(); });
+    }
+    if (window.MathJax && MathJax.typesetPromise) {
+      MathJax.typesetPromise([document.getElementById(btn.dataset.tab)]).catch(()=>{});
+    }
+  });
+});
+
+const f = x => (3*x + 2) / (x + 4);
+const N_MAX = 30;
+const U = [0];
+for (let i = 1; i <= N_MAX; i++) U.push(f(U[i-1]));
+
+const fmt15 = v => v.toFixed(15).replace('.', ',');
+
+const FRACTIONS = {
+  0: '0',
+  1: '1/2',
+  2: '7/9',
+  3: '39/43',
+  4: '203/211',
+  5: '1031/1047'
+};
+
+const canvas = document.getElementById('seqCanvas');
+const ctx = canvas.getContext('2d');
+let dpr = window.devicePixelRatio || 1;
+
+const DEFAULT_VIEW = { xMin: -0.08, xMax: 1.18, yMin: -0.08, yMax: 1.18 };
+let view = { ...DEFAULT_VIEW };
+
+function resizeCanvas(){
+  const wrap = canvas.parentElement;
+  const cssW = Math.max(360, wrap.clientWidth - 30);
+  const cssH = Math.round(cssW * 0.75);
+  canvas.style.width  = cssW + 'px';
+  canvas.style.height = cssH + 'px';
+  dpr = window.devicePixelRatio || 1;
+  canvas.width  = Math.round(cssW * dpr);
+  canvas.height = Math.round(cssH * dpr);
+  draw();
+}
+window.addEventListener('resize', resizeCanvas);
+
+let numTerms     = 8;
+let animT        = 0;
+let isPlaying    = false;
+let lastTime     = 0;
+let speedFactor  = 3;
+const BASE_SEG_DURATION = 700;
+let isDragging   = false;
+let dragStart    = null;
+
+let autoZoomEnabled  = false;
+let lastAutoZoomTerm = -1;
+
+function buildSegments(N){
+  const segs = [];
+  for (let k = 0; k < N; k++){
+    segs.push({ type:'V', from:[U[k], U[k]], to:[U[k], U[k+1]], term:k+1 });
+    segs.push({ type:'H', from:[U[k], U[k+1]], to:[U[k+1], U[k+1]], term:k+1 });
+  }
+  return segs;
+}
+
+let SEGMENTS = buildSegments(numTerms);
+
+let plot = { pad:44, W:0, H:0 };
+
+function toPx(x,y){
+  const { pad, W, H } = plot;
+  const px = pad + (x - view.xMin) / (view.xMax - view.xMin) * (W - 2*pad);
+  const py = H - pad - (y - view.yMin) / (view.yMax - view.yMin) * (H - 2*pad);
+  return [px, py];
+}
+function toWorld(px,py){
+  const { pad, W, H } = plot;
+  const x = view.xMin + (px - pad) / (W - 2*pad) * (view.xMax - view.xMin);
+  const y = view.yMin + (H - pad - py) / (H - 2*pad) * (view.yMax - view.yMin);
+  return [x, y];
+}
+
+function draw(){
+  const W = canvas.width  / dpr;
+  const H = canvas.height / dpr;
+  plot.W = W; plot.H = H;
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = '#0a1128';
+  ctx.fillRect(0,0,W,H);
+
+  drawGrid();
+  drawAxes();
+  drawIdentity();
+  drawCurve();
+  drawStaircase();
+  drawDropsToAxis();
+  drawMarkers();
+  drawFixedPoint();
+  drawCurrentPoint();
+}
+
+function formatAxisLabel(value, step){
+  if (Math.abs(value - 1) < 1e-9) return '1';
+  if (Math.abs(value) < 1e-12) return '0';
+  const decimals = Math.max(0, Math.ceil(-Math.log10(step)) + 1);
+  let s = value.toFixed(Math.min(decimals, 8));
+  if (s.includes('.')) s = s.replace(/\.?0+$/, '');
+  return s.replace('.', ',');
+}
+
+function drawGrid(){
+  const { W, H, pad } = plot;
+  const xRange = view.xMax - view.xMin;
+  const yRange = view.yMax - view.yMin;
+  const stepX = niceStep(xRange);
+  const stepY = niceStep(yRange);
+
+  ctx.strokeStyle = '#1e293b';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+
+  for (let x = Math.ceil(view.xMin/stepX)*stepX; x <= view.xMax; x += stepX){
+    const [px] = toPx(x, 0);
+    ctx.moveTo(px, pad); ctx.lineTo(px, H-pad);
+  }
+  for (let y = Math.ceil(view.yMin/stepY)*stepY; y <= view.yMax; y += stepY){
+    const [,py] = toPx(0, y);
+    ctx.moveTo(pad, py); ctx.lineTo(W-pad, py);
+  }
+  ctx.stroke();
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '11px Consolas, monospace';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+
+  const zoomTight = xRange < 0.15;
+  if (zoomTight) {
+    if (view.xMin <= 1 && view.xMax >= 1){
+      const [px, py] = toPx(1, 0);
+      ctx.save();
+      ctx.fillStyle = '#00d2ff';
+      ctx.font = 'bold 13px Consolas, monospace';
+      ctx.fillText('1', px, Math.min(py + 4, H - pad + 4));
+      ctx.restore();
+    }
+  } else {
+    for (let x = Math.ceil(view.xMin/stepX)*stepX; x <= view.xMax; x += stepX){
+      if (Math.abs(x) < 1e-9) continue;
+      const [px,py] = toPx(x, 0);
+      ctx.fillText(formatAxisLabel(x, stepX), px, Math.min(py+4, H-pad+4));
+    }
+  }
+
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '11px Consolas, monospace';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  for (let y = Math.ceil(view.yMin/stepY)*stepY; y <= view.yMax; y += stepY){
+    if (Math.abs(y) < 1e-9) continue;
+    const [px,py] = toPx(0, y);
+    ctx.fillText(formatAxisLabel(y, stepY), pad-6, py);
+  }
+}
+
+function niceStep(range){
+  const raw = range / 6;
+  const p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const n = raw / p;
+  let s;
+  if (n < 1.5) s = 1; else if (n < 3) s = 2; else if (n < 7) s = 5; else s = 10;
+  return s * p;
+}
+
+function drawAxes(){
+  const { W, H, pad } = plot;
+  ctx.strokeStyle = '#00d2ff';
+  ctx.lineWidth = 1.4;
+  ctx.beginPath();
+
+  const [x0] = toPx(0, 0);
+  const [,y0] = toPx(0, 0);
+
+  if (y0 >= pad && y0 <= H-pad){ ctx.moveTo(pad, y0); ctx.lineTo(W-pad, y0); }
+  if (x0 >= pad && x0 <= W-pad){ ctx.moveTo(x0, pad); ctx.lineTo(x0, H-pad); }
+  ctx.stroke();
+
+  ctx.fillStyle = '#00d2ff';
+  if (y0 >= pad && y0 <= H-pad){
+    ctx.beginPath();
+    ctx.moveTo(W-pad, y0);
+    ctx.lineTo(W-pad-8, y0-4);
+    ctx.lineTo(W-pad-8, y0+4);
+    ctx.closePath(); ctx.fill();
+    ctx.font = 'italic 14px Georgia';
+    ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+    ctx.fillText('x', W-pad-4, y0-4);
+  }
+  if (x0 >= pad && x0 <= W-pad){
+    ctx.beginPath();
+    ctx.moveTo(x0, pad);
+    ctx.lineTo(x0-4, pad+8);
+    ctx.lineTo(x0+4, pad+8);
+    ctx.closePath(); ctx.fill();
+    ctx.font = 'italic 14px Georgia';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('y', x0+6, pad);
+  }
+}
+
+function drawIdentity(){
+  const { pad, W, H } = plot;
+  const [xa,ya] = toPx(view.xMin, view.xMin);
+  const [xb,yb] = toPx(view.xMax, view.xMax);
+  ctx.save();
+  ctx.strokeStyle = '#64748b';
+  ctx.lineWidth = 1.3;
+  ctx.setLineDash([6,4]);
+  ctx.beginPath();
+  ctx.rect(pad, pad, W-2*pad, H-2*pad);
+  ctx.clip();
+  ctx.moveTo(xa,ya); ctx.lineTo(xb,yb);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawCurve(){
+  const { pad, W, H } = plot;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(pad, pad, W-2*pad, H-2*pad);
+  ctx.clip();
+
+  ctx.strokeStyle = '#00d2ff';
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  const samples = 400;
+  let started = false;
+  for (let i = 0; i <= samples; i++){
+    const x = view.xMin + (view.xMax - view.xMin) * i / samples;
+    if (Math.abs(x + 4) < 0.05){ started = false; continue; }
+    const y = f(x);
+    if (!isFinite(y)){ started = false; continue; }
+    const [px,py] = toPx(x, y);
+    if (!started){ ctx.moveTo(px,py); started = true; }
+    else ctx.lineTo(px,py);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawStaircase(){
+  const { pad, W, H } = plot;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(pad, pad, W-2*pad, H-2*pad);
+  ctx.clip();
+
+  ctx.strokeStyle = '#ff007f';
+  ctx.lineWidth = 1.2;
+  ctx.lineJoin = 'miter';
+  ctx.beginPath();
+
+  const fullSegs = Math.floor(animT);
+  const partial  = animT - fullSegs;
+
+  for (let i = 0; i < fullSegs && i < SEGMENTS.length; i++){
+    const s = SEGMENTS[i];
+    const [x1,y1] = toPx(s.from[0], s.from[1]);
+    const [x2,y2] = toPx(s.to[0],   s.to[1]);
+    ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+  }
+  if (fullSegs < SEGMENTS.length && partial > 0){
+    const s = SEGMENTS[fullSegs];
+    const xa = s.from[0] + (s.to[0]-s.from[0]) * partial;
+    const ya = s.from[1] + (s.to[1]-s.from[1]) * partial;
+    const [x1,y1] = toPx(s.from[0], s.from[1]);
+    const [x2,y2] = toPx(xa, ya);
+    ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawDropsToAxis(){
+  const { pad, W, H } = plot;
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(pad, pad, W-2*pad, H-2*pad);
+  ctx.clip();
+
+  const currentTerm = Math.min(numTerms, Math.floor(animT/2 + 1e-9));
+
+  for (let n = 1; n <= currentTerm; n++){
+    const u = U[n];
+    const [pxTop, pyTop] = toPx(u, u);
+    const [pxBot, pyBot] = toPx(u, 0);
+    const pyBotExt = pyBot + 7;
+
+    const isCurrent = (n === currentTerm) && (animT > 1e-9);
+
+    if (isCurrent){
+      ctx.strokeStyle = 'rgba(255, 190, 70, 0.95)';
+      ctx.lineWidth = 1.8;
+      ctx.setLineDash([]);
+    } else {
+      ctx.strokeStyle = 'rgba(255, 190, 70, 0.32)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+    }
+    ctx.beginPath();
+    ctx.moveTo(pxTop, pyTop);
+    ctx.lineTo(pxBot, pyBotExt);
+    ctx.stroke();
+  }
+  ctx.setLineDash([]);
+
+  if (currentTerm >= 1 && animT > 1e-9){
+    const u = U[currentTerm];
+    const [px, py] = toPx(u, 0);
+    ctx.fillStyle = '#ffbe46';
+    ctx.beginPath();
+    ctx.arc(px, py, 4.5, 0, 2*Math.PI);
+    ctx.fill();
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.3;
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
+function drawMarkers(){
+  const { pad, H } = plot;
+  const [,y0] = toPx(0,0);
+  const yAxe = (y0 >= pad && y0 <= H-pad) ? y0 : H-pad;
+
+  const reached = Math.min(numTerms, Math.floor(animT/2) + (animT % 2 > 0 ? 1 : 0));
+
+  ctx.save();
+  ctx.fillStyle = '#00d2ff';
+  ctx.font = 'bold 10px Georgia';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  for (let k = 0; k <= reached; k++){
+    const [px] = toPx(U[k], 0);
+    const dy = (k % 2 === 0) ? 14 : 24;
+    ctx.fillText('u' + k, px, yAxe + dy);
+  }
+  ctx.restore();
+}
+
+function drawFixedPoint(){
+  const [px,py] = toPx(1,1);
+  ctx.save();
+  ctx.fillStyle = '#ff4d4d';
+  ctx.beginPath();
+  ctx.arc(px, py, 5, 0, 2*Math.PI);
+  ctx.fill();
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.fillStyle = '#ff4d4d';
+  ctx.font = 'bold 12px Georgia';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('(1, 1)', px + 8, py - 6);
+  ctx.restore();
+}
+
+function drawCurrentPoint(){
+  if (animT <= 0) return;
+  const idx = Math.min(SEGMENTS.length - 1, Math.floor(animT - 1e-9));
+  const s = SEGMENTS[idx];
+  const t = animT - Math.floor(animT);
+  const x = s.from[0] + (s.to[0]-s.from[0]) * (t > 0 ? t : 1);
+  const y = s.from[1] + (s.to[1]-s.from[1]) * (t > 0 ? t : 1);
+  const [px,py] = toPx(x,y);
+  ctx.save();
+  ctx.fillStyle = '#ff007f';
+  ctx.beginPath();
+  ctx.arc(px, py, 4, 0, 2*Math.PI);
+  ctx.fill();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 1.4;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function updateReadout(){
+  const k = Math.min(numTerms, Math.floor(animT/2));
+  const val = U[k];
+  const html =
+    '$u_{' + k + '} = ' + fmt15(val) + '$' +
+    ' &nbsp;·&nbsp; terme courant : $n=' + k + '$';
+  document.getElementById('readout').innerHTML = html;
+  if (window.MathJax && MathJax.typesetPromise){
+    MathJax.typesetPromise([document.getElementById('readout')]).catch(()=>{});
+  }
+  highlightRow(k);
+}
+
+function highlightRow(k){
+  const currentRow = document.querySelector('#valsBody tr.current');
+  if (currentRow && currentRow.dataset.n == String(k)) return;
+  if (currentRow) currentRow.classList.remove('current');
+  const row = document.querySelector('#valsBody tr[data-n="'+k+'"]');
+  if (row){
+    row.classList.add('current');
+    row.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }
+}
+
+function totalSegments(){ return 2 * numTerms; }
+
+function tick(now){
+  if (!isPlaying) return;
+  if (!lastTime) lastTime = now;
+  const dt = now - lastTime;
+  lastTime = now;
+
+  const duration = BASE_SEG_DURATION / speedFactor;
+  animT += dt / duration;
+
+  if (animT >= totalSegments()){
+    animT = totalSegments();
+    isPlaying = false;
+    document.getElementById('btnPlay').textContent = '▶ Lecture';
+    document.getElementById('btnPlay').classList.remove('warn');
+    document.getElementById('btnPlay').classList.add('primary');
+  }
+
+  const currentTerm = Math.min(numTerms, Math.floor(animT/2));
+  if (autoZoomEnabled && currentTerm > lastAutoZoomTerm && currentTerm >= 1){
+    zoomFocusFixed(0.75, false);
+  }
+  lastAutoZoomTerm = currentTerm;
+
+  draw();
+  updateReadout();
+  if (isPlaying) requestAnimationFrame(tick);
+}
+
+const btnPlay   = document.getElementById('btnPlay');
+const btnStepB  = document.getElementById('btnStepBack');
+const btnStepF  = document.getElementById('btnStepFwd');
+const btnReset  = document.getElementById('btnReset');
+const btnZIn    = document.getElementById('btnZoomIn');
+const btnZOut   = document.getElementById('btnZoomOut');
+const btnVG     = document.getElementById('btnViewGlobal');
+const btnVF     = document.getElementById('btnViewFixed');
+const termsRange= document.getElementById('termsRange');
+const termsLbl  = document.getElementById('termsLbl');
+const speedRange= document.getElementById('speedRange');
+const autoZoomChk = document.getElementById('autoZoom');
+
+autoZoomChk.addEventListener('change', (e) => {
+  autoZoomEnabled = e.target.checked;
+  if (autoZoomEnabled){
+    lastAutoZoomTerm = Math.min(numTerms, Math.floor(animT/2));
+  } else {
+    lastAutoZoomTerm = -1;
+  }
+});
+
+btnPlay.addEventListener('click', () => {
+  if (animT >= totalSegments()) animT = 0;
+  isPlaying = !isPlaying;
+  if (isPlaying){
+    btnPlay.textContent = '⏸ Pause';
+    btnPlay.classList.remove('primary');
+    btnPlay.classList.add('warn');
+    lastTime = 0;
+    requestAnimationFrame(tick);
+  } else {
+    btnPlay.textContent = '▶ Lecture';
+    btnPlay.classList.remove('warn');
+    btnPlay.classList.add('primary');
+  }
+});
+
+btnStepB.addEventListener('click', () => {
+  isPlaying = false;
+  btnPlay.textContent = '▶ Lecture';
+  btnPlay.classList.remove('warn'); btnPlay.classList.add('primary');
+  animT = Math.max(0, Math.floor(animT) - 2);
+  draw(); updateReadout();
+});
+btnStepF.addEventListener('click', () => {
+  isPlaying = false;
+  btnPlay.textContent = '▶ Lecture';
+  btnPlay.classList.remove('warn'); btnPlay.classList.add('primary');
+  animT = Math.min(totalSegments(), Math.floor(animT) + 2);
+
+  const currentTerm = Math.min(numTerms, Math.floor(animT/2));
+  if (autoZoomEnabled && currentTerm > lastAutoZoomTerm && currentTerm >= 1){
+    zoomFocusFixed(0.75, false);
+  }
+  lastAutoZoomTerm = currentTerm;
+
+  draw(); updateReadout();
+});
+btnReset.addEventListener('click', () => {
+  isPlaying = false;
+  btnPlay.textContent = '▶ Lecture';
+  btnPlay.classList.remove('warn'); btnPlay.classList.add('primary');
+  animT = 0; view = { ...DEFAULT_VIEW };
+  lastAutoZoomTerm = 0;
+  draw(); updateReadout();
+});
+
+termsRange.addEventListener('input', (e) => {
+  numTerms = parseInt(e.target.value, 10);
+  termsLbl.textContent = numTerms;
+  SEGMENTS = buildSegments(numTerms);
+  animT = Math.min(animT, totalSegments());
+  draw(); updateReadout();
+});
+
+speedRange.addEventListener('input', (e) => {
+  speedFactor = parseInt(e.target.value, 10);
+});
+
+function zoomFocusFixed(factor, redraw=true) {
+  const cx = 1, cy = 1;
+  let w = (view.xMax - view.xMin) * factor;
+  let h = (view.yMax - view.yMin) * factor;
+  const minSpan = 1e-8;
+  if (w < minSpan) w = minSpan;
+  if (h < minSpan) h = minSpan;
+  view.xMin = cx - w / 2;
+  view.xMax = cx + w / 2;
+  view.yMin = cy - h / 2;
+  view.yMax = cy + h / 2;
+  if (redraw) draw();
+}
+
+btnZIn .addEventListener('click', () => zoomFocusFixed(1 / 1.35));
+btnZOut.addEventListener('click', () => zoomFocusFixed(1.35));
+btnVG  .addEventListener('click', () => { view = { ...DEFAULT_VIEW }; draw(); });
+btnVF  .addEventListener('click', () => {
+  view = { xMin: 0.98, xMax: 1.002, yMin: 0.98, yMax: 1.002 };
+  draw();
+});
+
+canvas.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) * (canvas.width / dpr) / rect.width;
+  const my = (e.clientY - rect.top ) * (canvas.height/ dpr) / rect.height;
+  const [wx, wy] = toWorld(mx, my);
+  const factor = e.deltaY > 0 ? 1.12 : 0.89;
+  view.xMin = wx + (view.xMin - wx) * factor;
+  view.xMax = wx + (view.xMax - wx) * factor;
+  view.yMin = wy + (view.yMin - wy) * factor;
+  view.yMax = wy + (view.yMax - wy) * factor;
+  draw();
+}, { passive: false });
+
+canvas.addEventListener('pointerdown', (e) => {
+  isDragging = true;
+  dragStart = { x: e.clientX, y: e.clientY, view: { ...view } };
+  canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove', (e) => {
+  if (!isDragging) return;
+  const rect = canvas.getBoundingClientRect();
+  const dxPx = (e.clientX - dragStart.x) * (canvas.width / dpr) / rect.width;
+  const dyPx = (e.clientY - dragStart.y) * (canvas.height/ dpr) / rect.height;
+  const { W, H, pad } = plot;
+  const dxW = dxPx / (W - 2*pad) * (dragStart.view.xMax - dragStart.view.xMin);
+  const dyW = dyPx / (H - 2*pad) * (dragStart.view.yMax - dragStart.view.yMin);
+  view.xMin = dragStart.view.xMin - dxW;
+  view.xMax = dragStart.view.xMax - dxW;
+  view.yMin = dragStart.view.yMin + dyW;
+  view.yMax = dragStart.view.yMax + dyW;
+  draw();
+});
+canvas.addEventListener('pointerup', (e) => {
+  isDragging = false;
+  try { canvas.releasePointerCapture(e.pointerId); } catch(_){}
+});
+canvas.addEventListener('pointercancel', () => { isDragging = false; });
+
+function buildTable(){
+  const tbody = document.getElementById('valsBody');
+  tbody.innerHTML = '';
+  for (let n = 0; n <= 20; n++){
+    const un = U[n];
+    const err = 1 - un;
+    const exact = FRACTIONS[n] ? FRACTIONS[n] : '';
+    const tr = document.createElement('tr');
+    tr.dataset.n = n;
+    tr.innerHTML =
+      '<td>' + n + '</td>' +
+      '<td>' + (exact ? exact + '<br><span style="font-size:0.8em;color:#94a3b8;">' + fmt15(un) + '</span>' : fmt15(un)) + '</td>' +
+      '<td class="err">' + fmt15(Math.abs(err)) + '</td>';
+    tbody.appendChild(tr);
+  }
+}
+
+buildTable();
+resizeCanvas();
+updateReadout();
+
+document.querySelector('.tab-btn[data-tab="animation"]').addEventListener('click', () => {
+  setTimeout(resizeCanvas, 60);
+});
+
+})();
+</script>
+</body>
+</html>
