@@ -474,21 +474,55 @@ footer .author-footer { color: var(--neon-pink); font-weight: 700; }
 <body>
 
 <!-- ============================================================
-     PATCH : forcer l'ouverture de la page en haut (header visible)
-     Empêche le saut automatique vers #animation et la restauration
-     de la position de scroll par le navigateur.
+     PATCH ANTI-SCROLL RENFORCÉ
+     Verrouille la page en haut pendant 2,5 s pour neutraliser
+     tous les reflows tardifs (MathJax, polices, images…).
      ============================================================ -->
 <script>
+(function(){
   if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
   }
-  window.scrollTo(0, 0);
-  window.addEventListener('load', () => {
-    if (window.location.hash) {
+
+  if (window.location.hash) {
+    try {
       history.replaceState(null, '', window.location.pathname + window.location.search);
+    } catch(e){}
+  }
+
+  var styleFix = document.createElement('style');
+  styleFix.textContent = 'html,body{overflow-anchor:none!important;}';
+  document.head.appendChild(styleFix);
+
+  var startTime = performance.now();
+  var MAX_LOCK_MS = 2500;
+
+  function forceTop(){
+    if (performance.now() - startTime > MAX_LOCK_MS) return;
+    if (window.scrollY !== 0 || window.pageYOffset !== 0) {
+      window.scrollTo(0, 0);
     }
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  });
+  }
+
+  forceTop();
+  document.addEventListener('DOMContentLoaded', forceTop);
+  window.addEventListener('load', forceTop);
+  window.addEventListener('pageshow', forceTop);
+  window.addEventListener('scroll', forceTop, { passive: true });
+
+  function loop(){
+    forceTop();
+    if (performance.now() - startTime < MAX_LOCK_MS) {
+      requestAnimationFrame(loop);
+    }
+  }
+  requestAnimationFrame(loop);
+
+  setTimeout(function(){
+    window.removeEventListener('scroll', forceTop);
+    window.scrollTo(0, 0);
+  }, MAX_LOCK_MS + 50);
+})();
 </script>
 
 <header>
